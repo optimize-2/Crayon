@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
-#include"tools/init/init.h"
+#include"tools/lib/init.h"
 
-#define CRAYON 2.0
+#define CRAYON 2.2
 
 //cyrand:
 bool isInit;
@@ -177,24 +177,10 @@ namespace cystem {
 	
 }
 
-class cyinit {
-	public:
-		cyinit() {
-			srand(time(NULL));
-			MTsrand(time(NULL));
-			system("del testdata /q");
-			cystem::init_system();
-		}
-		
-		~cyinit() {
-			freopen("CON","r",stdin);
-			freopen("CON","w",stdout);
-		}
-};
 
-cyinit crayon_guard;
 
 namespace cydata {
+	std::string __base;
 	inline void make_in(int id) {
 		freopen("CON","r",stdin);
 		freopen("CON","w",stdout);
@@ -202,7 +188,7 @@ namespace cydata {
 		std::stringstream ss;
 		ss<<id;
 		ss>>_id; 
-		std::string opentmp="testdata\\testdata"+_id+".in";
+		std::string opentmp="testdata\\"+__base+_id+".in";
 		freopen(opentmp.c_str(),"w",stdout);
 	}
 	
@@ -230,9 +216,9 @@ namespace cydata {
 		ss<<id;
 		ss>>_id;
 		
-		opentmp="testdata\\testdata"+_id+".in";
+		opentmp="testdata\\"+__base+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
-		opentmp="testdata\\testdata"+_id+".out";
+		opentmp="testdata\\"+__base+_id+".out";
 		freopen(opentmp.c_str(),"w",stdout);
 		
 		system("tools\\program\\std.exe");
@@ -261,6 +247,25 @@ namespace cydata {
 		freopen("CON","w",stdout);
 	}
 }
+
+class cyinit {
+	public:
+		cyinit() {
+			cydata::__base="testdata";
+			srand(time(NULL));
+			MTsrand(time(NULL));
+			system("del testdata /q");
+			cystem::init_system();
+			cydata::__base="testdata";
+		}
+		
+		~cyinit() {
+			freopen("CON","r",stdin);
+			freopen("CON","w",stdout);
+		}
+};
+
+cyinit crayon_guard;
 
 namespace cydebug {
 	bool match(int num) {
@@ -992,7 +997,7 @@ namespace crayon_for_Cpp_11 {
 }
 #endif
 
-#include"tools/plugs/includes.hpp"//for your plugs
+#include"tools/lib/plugs/includes.hpp"//for your plugs
 
 namespace cy {
 	using namespace cymath;
@@ -1006,5 +1011,5 @@ namespace cy {
 #if __cplusplus == 201103
 	using namespace crayon_for_Cpp_11;
 #endif
-	#include"tools/plugs/namespaces.hpp"
+	#include"tools/lib/plugs/namespaces.hpp"
 }
