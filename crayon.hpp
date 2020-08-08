@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
-#include"tools/init/init.h"
+#include"tools/lib/init.h"
 
-#define CRAYON 2.0
+#define CRAYON 2.2
 
 //cyrand:
 bool isInit;
@@ -55,6 +55,8 @@ inline long long cyrand_ll(long long a,long long b) {
 }
 
 namespace cymath {
+	#define CRAYON_INT_INF 0x3f3f3f3f
+	
 	template<typename T>
 	inline T crayon_abs(T a) {return a>0?a:-a;}
 	inline int crayon_min(int a,int b) {return a<b?a:b;}
@@ -174,27 +176,12 @@ namespace cystem {
 		crayon_system(a);
 		return;
 	}
-	
 }
 
-class cyinit {
-	public:
-		cyinit() {
-			srand(time(NULL));
-			MTsrand(time(NULL));
-			system("del testdata /q");
-			cystem::init_system();
-		}
-		
-		~cyinit() {
-			freopen("CON","r",stdin);
-			freopen("CON","w",stdout);
-		}
-};
 
-cyinit crayon_guard;
 
 namespace cydata {
+	std::string database;
 	inline void make_in(int id) {
 		freopen("CON","r",stdin);
 		freopen("CON","w",stdout);
@@ -202,7 +189,7 @@ namespace cydata {
 		std::stringstream ss;
 		ss<<id;
 		ss>>_id; 
-		std::string opentmp="testdata\\testdata"+_id+".in";
+		std::string opentmp="testdata\\"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"w",stdout);
 	}
 	
@@ -230,9 +217,9 @@ namespace cydata {
 		ss<<id;
 		ss>>_id;
 		
-		opentmp="testdata\\testdata"+_id+".in";
+		opentmp="testdata\\"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
-		opentmp="testdata\\testdata"+_id+".out";
+		opentmp="testdata\\"+cydata::database+_id+".out";
 		freopen(opentmp.c_str(),"w",stdout);
 		
 		system("tools\\program\\std.exe");
@@ -250,9 +237,9 @@ namespace cydata {
 		ss<<id;
 		ss>>_id;
 		
-		opentmp="testdata\\testdata"+_id+".in";
+		opentmp="testdata"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
-		opentmp="testdata\\testdata"+_id+".out";
+		opentmp="testdata"+cydata::database+_id+".out";
 		freopen(opentmp.c_str(),"w",stdout);
 		
 		system(path.c_str());
@@ -262,9 +249,26 @@ namespace cydata {
 	}
 }
 
+class cyinit {
+	public:
+		cyinit() {
+			cydata::database="testdata";
+			srand(time(NULL));
+			MTsrand(time(NULL));
+			system("del testdata /q");
+			cystem::init_system();
+		}
+		
+		~cyinit() {
+			freopen("CON","r",stdin);
+			freopen("CON","w",stdout);
+		}
+};
+
+cyinit crayon_guard;
+
 namespace cydebug {
 	bool match(int num) {
-		
 		int id=num;
 		std::string _id;
 		std::stringstream ss;
@@ -274,7 +278,7 @@ namespace cydebug {
 		freopen("CON","r",stdin);
 		freopen("CON","w",stdout);
 		
-		std::string opentmp="testdata\\testdata"+_id+".in";
+		std::string opentmp="testdata\\"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
 		freopen("tools\\program\\match1.out","w",stdout);
 		
@@ -284,7 +288,7 @@ namespace cydebug {
 		freopen("CON","w",stdout);
 		
 		
-		opentmp="testdata\\testdata"+_id+".in";
+		opentmp="testdata\\"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
 		freopen("tools\\program\\match2.out","w",stdout);
 		
@@ -319,7 +323,7 @@ namespace cydebug {
 		
 		return ret;
 	}
-	/*
+	
 	void debug(int id) {
 		std::string _id;
 		std::stringstream ss;
@@ -329,7 +333,7 @@ namespace cydebug {
 		freopen("CON","r",stdin);
 		freopen("CON","w",stdout);
 		
-		std::string opentmp="testdata\\testdata"+_id+".in";
+		std::string opentmp="testdata\\"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
 		
 		
@@ -355,7 +359,6 @@ namespace cydebug {
 		remove("tools\\program\\pp.out");
 		remove("tools\\program\\tmp.tmp");
 	}
-	*/
 	
 	void judge(int id,int timax) {
 		std::string _id;
@@ -366,7 +369,7 @@ namespace cydebug {
 		freopen("CON","r",stdin);
 		freopen("CON","w",stdout);
 		
-		std::string opentmp="testdata\\testdata"+_id+".in";
+		std::string opentmp="testdata\\"+cydata::database+_id+".in";
 		std::cout<<"²âÊÔµã : "<<id<<'\n';
 		freopen(opentmp.c_str(),"r",stdin);
 		freopen("tools\\program\\prog1.out","w",stdout);
@@ -472,6 +475,7 @@ namespace cyfrac {
 		os<<c.x<<"/"<<c.y;
 		return os;
 	}
+	
 	std::istream&operator>>(std::istream&is,frac&c) {
 		if(frac_input_mode) {
 			is>>c.x ;
@@ -488,29 +492,29 @@ namespace cyfrac {
 }
 
 namespace cygraph{
-	template<typename T> struct edge {
+	template<typename T>
+	struct edge {
 		int v;
 		T w;
-		//edge(int a,int b)
-		//{
-		//	v=a,w=b;
-		//}
-		bool operator<(const edge& rw )const  //priority_queue
+		edge() {}
+		edge(int a,T b) {v=a,w=b;}
+		
+		bool operator<(const edge& rw )const
 		{
 			return w>rw.w;
 		}
 	};
 	
-	template<typename T> struct U {
+	template<typename T>
+	struct U {
 		std::vector<edge<T> >u;
 	};
 	
-	template<typename T> struct graph {  //graph
-		int n,m;
+	template<typename T>
+	struct graph {
+	 	int n,m;
 		std::vector<U<T> >g;
-		graph() {
-			;
-		}
+		graph() {}
 
 		void update(int ntemp) {
 			U<T> updatemp;
@@ -518,44 +522,37 @@ namespace cygraph{
 			while(g.size()<=ntemp) g.push_back(updatemp);
 		}
 		
-		
-		
-		/*
-		int dijkstra(int beg,int end) {
-			std::priority_queue<edge>q;
+		std::vector<T> dijkstra(int beg) {
+			std::priority_queue< edge<T> >q;
 			bool vst[n+1];
-			int len[n+1];
-			for(int i=1;i<=n;i++)
-			{
-				len[i]=0x3f3f3f3;
+			std::vector<T>dis;
+			for(int i=0;i<=n;i++) {
+				dis.push_back(T(CRAYON_INT_INF));
 				vst[i]=false;
 			}
-			len[beg]=0;
-			edge tmp;
+			dis[beg]=0;
+			edge<T> tmp;
 			tmp.v=beg;
 			tmp.w=0;
 			q.push(tmp);
-			while(!q.empty())
-			{
-				edge tmp2=q.top();
+			while(!q.empty()) {
+				edge<T> tmp2=q.top();
 				q.pop();
 				if(vst[tmp2.v]==1) continue;
 				vst[tmp2.v]=1;
-				for(int i=0; i<g[tmp2.v].u.size(); i++)
-				{
-					edge y=g[tmp2.v].u[i];
-					if(len[y.v]>y.w+tmp2.w)
+				for(int i=0; i<g[tmp2.v].u.size(); i++) {
+					edge<T> y=g[tmp2.v].u[i];
+					if(dis[y.v]>y.w+tmp2.w)
 					{
-						len[y.v]=y.w+tmp2.w;
+						dis[y.v]=y.w+tmp2.w;
 						tmp.v=y.v;
-						tmp.w=len[y.v];
+						tmp.w=dis[y.v];
 						q.push(tmp);
 					}
 				}
 			}
-			if(vst[end]==false) return -1;
-			else return len[end];
-		}*/
+			return dis;
+		}
 		
 		void addedge(int u,int v,T w) {
 			n=cymath::crayon_max(n,u);
@@ -566,19 +563,17 @@ namespace cygraph{
 			g[u].u.push_back(tmp);
 		}
 		
-		/*
-		int spfa(int beg,int end)
-		{
+		std::vector<T> spfa(int beg) {
 			int p;
 			std::deque<int>q;
-			std::vector<int>dis;
+			std::vector<T>dis;
 			std::vector<bool>vis;
 			
 			switch(cystem::spfa_optimize)
 			{
 			case 0:
 				for(int i=0;i<=n;i++) {
-					dis.push_back(0x7fffffff);
+					dis.push_back(T(CRAYON_INT_INF));
 					vis.push_back(false);
 				}
 				q.push_back(beg);
@@ -596,10 +591,10 @@ namespace cygraph{
 						}
 					}
 				}
-				return dis[end];
+				return dis;
 			case 1:
 				for(int i=0;i<=n;i++) {
-					dis.push_back(0x7fffffff);
+					dis[i].push_back(T(CRAYON_INT_INF));
 					vis.push_back(false);
 				}
 				q.push_back(beg);
@@ -618,9 +613,9 @@ namespace cygraph{
 						}
 					}
 				}
-				return dis[end];
+				return dis;
 			}
-		}*/
+		}
 		
 		
 		bool is_connect() {
@@ -650,7 +645,8 @@ namespace cygraph{
 		}
 	};
 	
-	template<typename T> std::ostream&operator<<(std::ostream&os,const graph<T>&c) {
+	template<typename T>
+	std::ostream&operator<<(std::ostream&os,const graph<T>&c) {
 		os<<c.n<<' '<<c.m<<'\n';
 		for(int i=1;i<=c.n;i++)
 		{
@@ -658,7 +654,9 @@ namespace cygraph{
 		}
 		return os;
 	}
-	template<typename T> std::istream&operator>>(std::istream&is,graph<T>&c) {
+	
+	template<typename T>
+	std::istream&operator>>(std::istream&is,graph<T>&c) {
 		is>>c.n>>c.m;
 		update(c.n);
 		for(int i=1;i<=c.m;i++) {
@@ -672,7 +670,8 @@ namespace cygraph{
 		return is;
 	}
 
-	template<typename T> graph<T> operator+(graph<T> a,graph<T> b) {
+	template<typename T>
+	graph<T> operator+(graph<T> a,graph<T> b) {
 		graph<T> ret;
 		ret=a;
 		ret.m=a.m+b.m;
@@ -685,7 +684,8 @@ namespace cygraph{
 		return ret;
 	}
 	
-	template<typename T> graph<T> rand_graph(int n,int m,T mn,T mx,T (*randfunc)(T,T)) {
+	template<typename T>
+	graph<T> rand_graph(int n,int m,T mn,T mx,T (*randfunc)(T,T)) {
 		graph<T> ret;
 		ret.n=n;
 		ret.m=m;
@@ -708,7 +708,8 @@ namespace cygraph{
 	
 	bool crayon_cmp1(crayon_node2 a,crayon_node2 b) {return a.num<b.num;}
 
-	template<typename T> graph<T> rand_dag(int n,int m,T mn,T mx,T (*randfunc)(T,T)) {
+	template<typename T>
+	graph<T> rand_dag(int n,int m,T mn,T mx,T (*randfunc)(T,T)) {
 		graph<T> ret;
 		ret.update(n);
 		ret.n=n;
@@ -731,12 +732,13 @@ namespace cygraph{
 		return ret;
 	}
 	
-	struct crayon_node1{
+	struct crayon_node1 {
 		int id;
 		int soncnt;
 	};
 	
-	template<typename T> graph<T> rand_tree(int n,int k,T mn,T mx,T (*randfunc)(T,T)) {
+	template<typename T>
+	graph<T> rand_tree(int n,int k,T mn,T mx,T (*randfunc)(T,T)) {
 		graph<T> ret;
 		ret.n=n;
 		ret.m=n-1;
@@ -767,7 +769,8 @@ namespace cygraph{
 		return ret;
 	}
 	
-	template<typename T> graph<T> connect_graph(int n,int m,T mn,T mx,T (*randfunc)(T,T)) {
+	template<typename T>
+	graph<T> connect_graph(int n,int m,T mn,T mx,T (*randfunc)(T,T)) {
 		int k=cyrand(1,n);
  		graph<T> ret;
 		ret=rand_tree(n,k,mn,mx,randfunc);
@@ -974,7 +977,8 @@ namespace cygeom {
 
 #if __cplusplus == 201103
 namespace crayon_for_Cpp_11 {
-	template<typename T> T choice(std::initializer_list<T>a) {
+	template<typename T>
+	T choice(std::initializer_list<T>a) {
 		std::vector<T>b;
 		for(auto i:a) {
 			b.push_back(i);
@@ -992,7 +996,7 @@ namespace crayon_for_Cpp_11 {
 }
 #endif
 
-#include"tools/plugs/includes.hpp"//for your plugs
+#include"tools/lib/plugs/includes.hpp"//for your plugs
 
 namespace cy {
 	using namespace cymath;
@@ -1006,5 +1010,5 @@ namespace cy {
 #if __cplusplus == 201103
 	using namespace crayon_for_Cpp_11;
 #endif
-	#include"tools/plugs/namespaces.hpp"
+	#include"tools/lib/plugs/namespaces.hpp"
 }
