@@ -6,7 +6,7 @@
 
 - 特色
 
-    Crayon的开发和操作都基于C++, 方便广大使用.
+    Crayon的开发和操作都基于C++, 方便使用.
 
     Crayon有详细的[使用说明](https://optmize-2.blog.luogu.org/How-to-use-Crayon)和使用举例.
 
