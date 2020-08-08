@@ -181,7 +181,11 @@ namespace cystem {
 
 
 namespace cydata {
+<<<<<<< HEAD
 	std::string database;
+=======
+	std::string __base;
+>>>>>>> b55bc88cd74547039aa1e056aba33a054544c7b0
 	inline void make_in(int id) {
 		freopen("CON","r",stdin);
 		freopen("CON","w",stdout);
@@ -189,7 +193,11 @@ namespace cydata {
 		std::stringstream ss;
 		ss<<id;
 		ss>>_id; 
+<<<<<<< HEAD
 		std::string opentmp="testdata\\"+cydata::database+_id+".in";
+=======
+		std::string opentmp="testdata\\"+__base+_id+".in";
+>>>>>>> b55bc88cd74547039aa1e056aba33a054544c7b0
 		freopen(opentmp.c_str(),"w",stdout);
 	}
 	
@@ -217,9 +225,15 @@ namespace cydata {
 		ss<<id;
 		ss>>_id;
 		
+<<<<<<< HEAD
 		opentmp="testdata\\"+cydata::database+_id+".in";
 		freopen(opentmp.c_str(),"r",stdin);
 		opentmp="testdata\\"+cydata::database+_id+".out";
+=======
+		opentmp="testdata\\"+__base+_id+".in";
+		freopen(opentmp.c_str(),"r",stdin);
+		opentmp="testdata\\"+__base+_id+".out";
+>>>>>>> b55bc88cd74547039aa1e056aba33a054544c7b0
 		freopen(opentmp.c_str(),"w",stdout);
 		
 		system("tools\\program\\std.exe");
@@ -252,11 +266,19 @@ namespace cydata {
 class cyinit {
 	public:
 		cyinit() {
+<<<<<<< HEAD
 			cydata::database="testdata";
+=======
+			cydata::__base="testdata";
+>>>>>>> b55bc88cd74547039aa1e056aba33a054544c7b0
 			srand(time(NULL));
 			MTsrand(time(NULL));
 			system("del testdata /q");
 			cystem::init_system();
+<<<<<<< HEAD
+=======
+			cydata::__base="testdata";
+>>>>>>> b55bc88cd74547039aa1e056aba33a054544c7b0
 		}
 		
 		~cyinit() {
