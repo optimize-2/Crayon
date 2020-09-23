@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 #include"tools/lib/init.h"
 
-#define CRAYON 2.2
+#define CRAYON_MAJOR 2
+#define CRAYON_MINOR 2
 
 //cyrand:
 bool isInit;
@@ -121,7 +122,7 @@ namespace cystem {
 	/*****/
 	int crayon_readmesize=16;
 	std::string crayon_readme=
-		"Crayon was done by optimize_2(Guid:224978)\n"
+		"Crayon was done by optimize_2(Luogu-uid:224978)\n"
 		"How to use it:\n"
 		"#include<crayon.hpp>\n"
 		"using namespace std;\n"
@@ -326,7 +327,7 @@ namespace cydebug {
 		
 		if(cystem::match_opt) {
 			freopen("CON","w",stdout);
-			std::cout<<"ÕýÔÚ²âÊÔtestdata"<<num<<"..."<<'\n';
+			std::cout<<"æ­£åœ¨æµ‹è¯•testdata"<<num<<"..."<<'\n';
 			std::ifstream in("tools\\program\\tmp.tmp");
 			std::ostringstream tmp;
 			tmp<<in.rdbuf();
@@ -359,8 +360,7 @@ namespace cydebug {
 		freopen(opentmp.c_str(),"r",stdin);
 		
 		
-		
-		std::cout<<"²âÊÔµã : "<<id<<'\n'<<"Êä³ö : "<<'\n';
+		std::cout<<"æµ‹è¯•ç‚¹ : "<<id<<'\n'<<"è¾“å‡º : "<<'\n';
 		
 		freopen("tools\\program\\pp.out","w",stdout);
 		
@@ -377,7 +377,7 @@ namespace cydebug {
 		
 		std::cout<<tmp.str();
 		
-		std::cout<<'\n'<<"ÓÃÊ± : "<<runtime<<'\n';
+		std::cout<<'\n'<<"ç”¨æ—¶ : "<<runtime<<'\n';
 		remove("tools\\program\\pp.out");
 		remove("tools\\program\\tmp.tmp");
 	}
@@ -392,7 +392,7 @@ namespace cydebug {
 		freopen("CON","w",stdout);
 		
 		std::string opentmp="testdata\\"+cydata::database+_id+".in";
-		std::cout<<"²âÊÔµã : "<<id<<'\n';
+		std::cout<<"æµ‹è¯•ç‚¹ : "<<id<<'\n';
 		freopen(opentmp.c_str(),"r",stdin);
 		freopen("tools\\program\\prog1.out","w",stdout);
 		
@@ -416,11 +416,11 @@ namespace cydebug {
 		
 		
 		
-		if(flag==1) std::cout<<" Unknown Error"<<'\n'<<" ÓÃÊ± : "<<runtime;
+		if(flag==1) std::cout<<" Unknown Error"<<'\n'<<" ç”¨æ—¶ : "<<runtime;
 		else {
-			if(runtime>timax) std::cout<<" Time Limit Exceeded"<<'\n'<<" ÓÃÊ± : "<<runtime;
-			else if(flag==0) std::cout<<" Accepted"<<'\n'<<" ÓÃÊ± : "<<runtime;
-			else std::cout<<" Wrong Answer"<<'\n'<<" ÓÃÊ± : "<<runtime;
+			if(runtime>timax) std::cout<<" Time Limit Exceeded"<<'\n'<<" ç”¨æ—¶ : "<<runtime;
+			else if(flag==0) std::cout<<" Accepted"<<'\n'<<" ç”¨æ—¶ : "<<runtime;
+			else std::cout<<" Wrong Answer"<<'\n'<<" ç”¨æ—¶ : "<<runtime;
 		}
 		std::cout<<'\n';
 		remove("tools\\program\\prog1.out");
@@ -821,7 +821,7 @@ namespace cygraph{
 		case 2:
 			if(n<=1) {
 				cydata::close_file();
-				std::cout<<"[Error]µãÊý¹ýÐ¡";
+				std::cout<<"[Error]ç‚¹æ•°è¿‡å°";
 				exit(0);
 			}
 			mid=cyrand(1,n);
@@ -861,12 +861,12 @@ namespace cygraph{
 			ret.update(n);
 			if(m<n*2) {
 				cydata::close_file();
-				std::cout<<"[Error]±ßÊý¹ýÐ¡";
+				std::cout<<"[Error]è¾¹æ•°è¿‡å°";
 				exit(0);
 			}
 			if(n<=1) {
 				cydata::close_file();
-				std::cout<<"[Error]µãÊý¹ýÐ¡";
+				std::cout<<"[Error]ç‚¹æ•°è¿‡å°";
 				exit(0);
 			}
 			int mid1=cyrand(1,n);
@@ -941,10 +941,10 @@ namespace cygeom {
 	cyvector operator-(crayon_vector a,crayon_vector b) {
 		return 0;
 	}
-	crayon_vector operator*(crayon_vector a,crayon_vector b) {//µã»ý
+	crayon_vector operator*(crayon_vector a,crayon_vector b) {//ç‚¹ç§¯
 		return 0;
 	}
-	crayon_vector operator^(crayon_vector a,crayon_vector b) {//²æ»ý
+	crayon_vector operator^(crayon_vector a,crayon_vector b) {//å‰ç§¯
 		return 0;
 	}
 	*/
